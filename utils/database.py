@@ -57,3 +57,6 @@ def execute_query(query, params=None, return_df=False):
         return None
     finally:
         conn.close()
+
+def feed_tables():
+    sales_reps_df = pd.read_csv('data/clientes_academia.csv')
