@@ -59,12 +59,10 @@ def execute_query(query, params=None, return_df=False):
         conn.close()
 
 def create_tables():
-    execute_query("CREATE TABLE teste")
-    # sql_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scripts', 'create_tables.sql')
-    # with open(sql_path, 'r') as f:
-    #     content = f.read()
-    #     for q in content.split(";"):
-    #         execute_query(q.strip())
+    sql_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'scripts', 'create_tables.sql')
+    with open(sql_path, 'r') as f:
+        content = f.read()
+        execute_query(content.strip())
 
 def feed_tables():
     customers_df = pd.read_csv('data/clientes_academia.csv')

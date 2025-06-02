@@ -5,7 +5,6 @@ from utils.database import create_tables, feed_tables
 def main():
     st.set_page_config(page_title="Sistema Academia", layout="wide")
     create_tables()
-    # feed_tables()
 
     if 'authentication_status' not in st.session_state:
         st.session_state.authentication_status = False

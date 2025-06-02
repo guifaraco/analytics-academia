@@ -1,7 +1,9 @@
+SET search_path TO academia;
+
 CREATE TABLE IF NOT EXISTS exercicios (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
-    grupo_muscular VARCHAR(50) NOT NULL,
+    grupo_muscular VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS planos (
@@ -44,6 +46,6 @@ CREATE TABLE IF NOT EXISTS clientes (
     telefone VARCHAR(15),
     sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
     plano_id INTEGER NOT NULL,
-    FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE
+    FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE,
     treino_id INTEGER REFERENCES treinos(id) ON DELETE CASCADE
 );
