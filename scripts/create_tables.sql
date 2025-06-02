@@ -55,7 +55,9 @@ CREATE TABLE IF NOT EXISTS treinos_exercicios (
 CREATE TABLE IF NOT EXISTS pagamento_clientes (
     id SERIAL PRIMARY KEY,
     cliente_id INTEGER NOT NULL,
+    plano_id INTEGER NOT NULL,
     valor_pago DECIMAL(10,2) NOT NULL CHECK(valor_pago > 0),
     data_pagamento DATE NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE
 );
