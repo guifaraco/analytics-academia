@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS clientes (
     idade INTEGER NOT NULL CHECK (idade > 0),
     sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
     email VARCHAR(100) NOT NULL UNIQUE,
-    telefone VARCHAR(15),
+    telefone VARCHAR(20),
     plano_id INTEGER NOT NULL,
     FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE
 );

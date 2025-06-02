@@ -65,7 +65,23 @@ def feed_tables():
         f'postgresql+psycopg2://{st.secrets.postgres.user}:{st.secrets.postgres.password}@{st.secrets.postgres.host}:{st.secrets.postgres.port}/{st.secrets.postgres.dbname}'
         )
 
-    customers_df = pd.read_csv('data/clientes_academia.csv')
+    clientes_df = pd.read_csv('data/clientes_academia.csv')
+    clientes_df.to_sql("clientes", engine, if_exists='append', schema="academia", index=False)
 
-    customers_df.to_sql("clientes", engine, if_exists='append', schema="academia", index=False)
-    return customers_df
+    exercicios_df = pd.read_csv('data/exercicios.csv')
+    exercicios_df.to_sql("exercicios", engine, if_exists='append', schema="academia", index=False)
+
+    instrutores_df = pd.read_csv('data/instrutores.csv')
+    instrutores_df.to_sql("instrutores", engine, if_exists='append', schema="academia", index=False)
+    
+    pagamento_clientes_df = pd.read_csv('data/pagamento_clientes.csv')
+    pagamento_clientes_df.to_sql("pagamento_clientes", engine, if_exists='append', schema="academia", index=False)
+
+    planos_df = pd.read_csv('data/planos.csv')
+    planos_df.to_sql("planos", engine, if_exists='append', schema="academia", index=False)
+
+    treino_exercicios_df = pd.read_csv('data/treino_exercicios.csv')
+    treino_exercicios_df.to_sql("treino_exercicios", engine, if_exists='append', schema="academia", index=False)
+
+    treinos_df = pd.read_csv('data/treinos.csv')
+    treinos_df.to_sql("treinos", engine, if_exists='append', schema="academia", index=False)
