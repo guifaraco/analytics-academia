@@ -6,9 +6,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def get_connection():
-    """Estabelece conexão com o PostgreSQL"""
     try:
-        # Configuração para produção (Streamlit Cloud)
         if os.environ.get('POSTGRES_HOST'):
             conn = psycopg2.connect(
                 host=os.environ['POSTGRES_HOST'],
@@ -17,7 +15,6 @@ def get_connection():
                 user=os.environ['POSTGRES_USER'],
                 password=os.environ['POSTGRES_PASSWORD']
             )
-        # Configuração para desenvolvimento local
         else:
             conn = psycopg2.connect(
                 host=st.secrets.postgres.host,
@@ -32,7 +29,6 @@ def get_connection():
         return None
 
 def execute_query(query, params=None, return_df=False):
-    """Executa uma query no PostgreSQL"""
     conn = get_connection()
     if not conn:
         return None
@@ -43,7 +39,6 @@ def execute_query(query, params=None, return_df=False):
             
             if query.strip().lower().startswith(('select', 'with')):
                 if return_df:
-                    # Para queries SELECT retornar DataFrame
                     columns = [desc[0] for desc in cur.description]
                     data = cur.fetchall()
                     return pd.DataFrame(data, columns=columns)
