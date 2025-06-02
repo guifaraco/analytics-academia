@@ -1,6 +1,5 @@
 import streamlit as st
 from utils.auth import check_authentication, logout
-from utils.database import create_tables, feed_tables
 
 check_authentication()
 
