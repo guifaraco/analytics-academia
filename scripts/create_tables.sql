@@ -19,33 +19,41 @@ CREATE TABLE IF NOT EXISTS instrutores (
     especialidade VARCHAR(50)
 );
 
-CREATE TABLE IF NOT EXISTS treinos_exercicios (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL UNIQUE,
-    descricao TEXT,
-    repeticoes INTEGER NOT NULL CHECK (repeticoes > 0),
-    series INTEGER NOT NULL CHECK (series > 0),
-    exercicio_id INTEGER NOT NULL,
-    FOREIGN KEY (exercicio_id) REFERENCES exercicios(id) ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS treinos (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL UNIQUE,
-    descricao TEXT,
-    data DATE NOT NULL,
-    duracao INTEGER NOT NULL CHECK (duracao > 0),
+    cliente_id INTEGER NOT NULL,
     instrutor_id INTEGER NOT NULL,
-    FOREIGN KEY (instrutor_id) REFERENCES instrutores(id) ON DELETE CASCADE
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL,
+    plano_id INTEGER NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE,
+    FOREIGN KEY (instrutor_id) REFERENCES instrutores(id) ON DELETE CASCADE,
+    FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS clientes (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
+    nome VARCHAR(50) NOT NULL UNIQUE,
+    idade INTEGER NOT NULL CHECK (duracao_meses > 0),
+    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
     email VARCHAR(100) NOT NULL UNIQUE,
     telefone VARCHAR(15),
-    sexo CHAR(1) CHECK (sexo IN ('M', 'F')),
     plano_id INTEGER NOT NULL,
+    instrutor_id INTEGER NOT NULL,
+    treino_id INTEGER NOT NULL,
     FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE,
-    treino_id INTEGER REFERENCES treinos(id) ON DELETE CASCADE
+    FOREIGN KEY (instrutor_id) REFERENCES instrutores(id) ON DELETE CASCADE,
+    FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS treinos_exercicios (
+    id SERIAL PRIMARY KEY,
+    treino_id INTEGER NOT NULL,
+    treino VARCHAR(50) NOT NULL,
+    exercicio_id INTEGER NOT NULL,
+    exercicio VARCHAR(50) NOT NULL UNIQUE,
+    series INTEGER NOT NULL CHECK (series > 0),
+    repeticoes INTEGER NOT NULL CHECK (repeticoes > 0),
+    FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE,
+    FOREIGN KEY (exercicio_id) REFERENCES exercicios(id) ON DELETE CASCADE
 );

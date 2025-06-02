@@ -3,6 +3,7 @@ import psycopg2
 import streamlit as st
 from psycopg2 import sql
 import pandas as pd
+from sqlalchemy import create_engine
 
 def get_connection():
     """Estabelece conexão com o PostgreSQL"""
@@ -65,6 +66,11 @@ def create_tables():
         execute_query(content.strip())
 
 def feed_tables():
+    engine = create_engine(
+        f'postgresql+psycopg2://{st.secrets.postgres.user}:{st.secrets.postgres.password}@{st.secrets.postgres.host}:{st.secrets.postgres.port}/{st.secrets.postgres.dbname}'
+        )
+
     customers_df = pd.read_csv('data/clientes_academia.csv')
 
+    customers_df.to_sql("clientes", engine, if_exists='append', schema="academia", index=False)
     return customers_df
