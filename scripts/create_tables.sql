@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS treinos (
     FOREIGN KEY (plano_id) REFERENCES planos(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS treinos_exercicios (
+CREATE TABLE IF NOT EXISTS treino_exercicios (
+    id SERIAL PRIMARY KEY,
     treino_id INTEGER NOT NULL,
     exercicio_id INTEGER NOT NULL,
     series INTEGER NOT NULL CHECK (series > 0),
     repeticoes INTEGER NOT NULL CHECK (repeticoes > 0),
-    PRIMARY KEY (treino_id, exercicio_id),
     FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE,
     FOREIGN KEY (exercicio_id) REFERENCES exercicios(id) ON DELETE CASCADE
 );

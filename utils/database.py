@@ -85,22 +85,18 @@ def feed_tables():
         clientes_df = pd.read_csv('data/clientes_academia.csv')
         clientes_df.to_sql("clientes", engine, if_exists='append', schema="academia", index=False)
 
-    treinos_exercicios_count = execute_query("SELECT COUNT(*) FROM academia.treinos_exercicios")
-    if treinos_exercicios_count[0][0] == 0:
-        treinos_exercicios_df = pd.read_csv('data/treino_exercicios.csv')
-        treinos_exercicios_tuples = list(treinos_exercicios_df.itertuples(index=False, name=None))
-        print(
-        "INSERT INTO academia.treinos_exercicios (treino_id, exercicio_id, series, repeticoes) VALUES "
-        + ', '.join(str(t) for t in treinos_exercicios_tuples)
-        + ";"
-        )
+    treinos_count = execute_query("SELECT COUNT(*) FROM academia.treinos")
+    if treinos_count[0][0] == 0:
+        treinos_df = pd.read_csv('data/treinos.csv')
+        treinos_df.to_sql("treinos", engine, if_exists='append', schema="academia", index=False)
+        
+    treino_exercicios_count = execute_query("SELECT COUNT(*) FROM academia.treino_exercicios")
+    if treino_exercicios_count[0][0] == 0:
+        treino_exercicios_df = pd.read_csv('data/treino_exercicios.csv')
+        treino_exercicios_df.to_sql("treino_exercicios", engine, if_exists='append', schema="academia", index=False)
+        
 
-    # treinos_count = execute_query("SELECT * FROM academia.treinos")
-    # if treinos_count[0][0] == 0:
-    #     treinos_df = pd.read_csv('data/treinos.csv')
-    #     treinos_df.to_sql("treinos", engine, if_exists='append', schema="academia", index=False)
-
-    # pagamento_clientes_count = execute_query("SELECT COUNT(*) FROM academia.pagamento_clientes")
-    # if pagamento_clientes_count[0][0] == 0:
-    #     pagamento_clientes_df = pd.read_csv('data/pagamento_clientes.csv')
-    #     pagamento_clientes_df.to_sql("pagamento_clientes", engine, if_exists='append', schema="academia", index=False)
+    pagamento_clientes_count = execute_query("SELECT COUNT(*) FROM academia.pagamento_clientes")
+    if pagamento_clientes_count[0][0] == 0:
+        pagamento_clientes_df = pd.read_csv('data/pagamento_clientes.csv')
+        pagamento_clientes_df.to_sql("pagamento_clientes", engine, if_exists='append', schema="academia", index=False)
