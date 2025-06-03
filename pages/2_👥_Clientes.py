@@ -5,6 +5,7 @@ from utils.customers_utils import show_customers_by_instructor, customers_page
 
 check_authentication()
 
+st.set_page_config(page_title="Clientes", layout="wide")
 st.title("Clientes da Academia")
 customers_page()
 

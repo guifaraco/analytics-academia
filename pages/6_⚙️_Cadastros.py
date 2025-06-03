@@ -4,6 +4,8 @@ from utils.registrations_utils import cadastro_clientes, cadastro_pagamentos, ca
 
 check_authentication()
 
+st.set_page_config(page_title="Cadastros", layout="wide")
+
 st.title("Cadastros")
 
 clientes, pagamentos, treinos, exercicio = st.columns(4)
