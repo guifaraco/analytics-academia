@@ -1,8 +1,8 @@
 import pandas as pd
 import streamlit as st
 from utils.database import execute_query, get_connection
-import matplotlib.pyplot as plt
 import plotly.express as px
+
 
 #gráfico de pessoas por tipo de plano
 connection = get_connection()
@@ -55,10 +55,8 @@ def clientes_planos():
     fig = px.pie(contagem, 
              names='Plano',
              color_discrete_sequence=px.colors.sequential.RdBu,
-             hole=0.3,
-             title="Contagem de pessoas por plano")  # Donut style
+             hole=0.3) 
 
-    # Ajustes de layout do gráfico
     fig.update_traces(textposition='inside', 
                     textinfo='percent+label',
                     hovertemplate="<b>%{label}</b><br>Clientes: %{value}<br>%{percent}",
@@ -66,7 +64,7 @@ def clientes_planos():
 
     fig.update_layout(
         height=500,
-        width=1000,
+        width=500,
         showlegend=False,
         margin=dict(t=50, b=50, l=50, r=50),
         plot_bgcolor='rgba(0,0,0,0)',
@@ -75,3 +73,9 @@ def clientes_planos():
 
    
     st.plotly_chart(fig)
+
+def planos():
+    planos = pd.read_sql_query("""
+    SELECT nome as "Plano", preco_mensal as "Preço", duracao_meses as "Período(Meses)" FROM academia.planos
+""", connection)
+    return st.dataframe(planos, width=800, hide_index=True)
