@@ -18,5 +18,6 @@ if treinos.button("Cadastrar novo treino.", use_container_width=True):
 if exercicio.button("Cadastrar novo exercicio ao treino.", use_container_width=True):
     cadastro_exercio_treino()
 
-if st.sidebar.button("🚪 Sair", use_container_width=True):
-    logout() 
+if st.session_state.get('authentication_status'):
+    if st.sidebar.button("🚪 Sair", use_container_width=True):
+        logout() 

@@ -9,8 +9,9 @@ st.set_page_config(page_title="Clientes", layout="wide")
 st.title("Clientes da Academia")
 customers_page()
 
-if st.sidebar.button("🚪 Sair", use_container_width=True):
-    logout()
-
 st.header("Clientes por Instrutor")
 clientes_por_instrutores = show_customers_by_instructor() 
+
+if st.session_state.get('authentication_status'):
+    if st.sidebar.button("🚪 Sair", use_container_width=True):
+        logout() 
