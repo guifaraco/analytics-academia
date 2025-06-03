@@ -28,6 +28,6 @@ def treinos_academia():
 
         exercicios = pd.read_sql_query(query, connection, params=escolha)
 
-        return st.dataframe(exercicios, width= 700, hide_index=True)
+        return st.dataframe(exercicios, width= 700, hide_index=True, use_container_width=True)
     else:
         return 'Nenhum grupo muscular selecionado'

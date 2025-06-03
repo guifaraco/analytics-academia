@@ -27,7 +27,7 @@ def show_payment_statistics():
     payment_count = get_payment_count(df) 
     payment_total_value = get_payment_total_value(df)
     df_last_payment_per_client = get_df_last_payment_per_client(df)
-
+    st.divider()
     col1, col2 = st.columns(2)
     col1.write("## Tabela de Pagamentos")
     col1.dataframe(df, hide_index=True, use_container_width=True)
