@@ -14,8 +14,12 @@ def login_page():
     admin_pass = os.getenv('ADMIN_PASSWORD', st.secrets.get('admin.password', 'admin123'))
     
     with st.container():
-        st.title("Sistema de Academia")
-        st.subheader("Acesso Administrativo")
+        st.title("Acesso Administrativo")
+        
+        username = st.text_input("Usuário")
+        password = st.text_input("Senha", type="password")
+        
+        if st.button("Login"):
 
         # Formulário para login
         with st.form(key="login_form"):
@@ -36,7 +40,7 @@ def login_page():
 
 
 def logout():
-    st.session_state.authenticated = False
+    st.session_state.authentication_status = False
     st.toast("Desconectando...")
     time.sleep(2)
     st.switch_page("pages/0_🔒_Login.py")

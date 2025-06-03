@@ -6,5 +6,7 @@ check_authentication()
 st.set_page_config(page_title="Pagamentos", layout="wide")
 st.title("Pagamentos da Academia")
 show_payment_statistics()
-if st.sidebar.button("🚪 Sair", use_container_width=True):
-    logout() 
+
+if st.session_state.get('authentication_status'):
+    if st.sidebar.button("🚪 Sair", use_container_width=True):
+        logout() 
