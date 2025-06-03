@@ -26,28 +26,41 @@ def show_customers_by_instructor():
     
 def customers_page():
     st.subheader("Filtros")
-    c1, c2, c3 = st.columns([1,9,1], vertical_alignment="bottom")
+    c1, c2, c3, c4 = st.columns([1,4,4,1], vertical_alignment="bottom")
     filters = []
 
     # Botão de Reset simples
-    c3.write("")
-    if c3.button("Resetar filtros", ):
+    if c4.button("Resetar filtros", ):
         st.session_state.sexo = None
+        st.session_state.idade = (0,100)
         st.session_state.plano = None
 
     # SEXO
     sexo = c1.radio("Sexo", ("M", "F"), horizontal=True, index=None, key="sexo")
 
+    # IDADE
+    min_idade_db = execute_query("SELECT MIN(idade) FROM academia.clientes")[0][0]
+    max_idade_db = execute_query("SELECT MAX(idade) FROM academia.clientes")[0][0]
+    min_idade, max_idade = c2.slider(
+        "Idade",
+        min_idade_db,
+        max_idade_db,
+        (min_idade_db, max_idade_db),
+        key="idade"
+    )
+
     # PLANOS
     planos = execute_query("SELECT nome FROM academia.planos")
     planos = [plano[0] for plano in planos]
-    plano = c2.selectbox(
+    plano = c3.selectbox(
         "Plano", 
         planos, 
         key="plano",
         index=None
     )
-
+    if min_idade and max_idade:
+        filters.append(f"c.idade >= '{min_idade}'")
+        filters.append(f"c.idade <= '{max_idade}'")
     if sexo:
         filters.append(f"c.sexo = '{sexo}'")
     if plano:

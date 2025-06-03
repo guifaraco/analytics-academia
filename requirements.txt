@@ -1,4 +1,7 @@
-streamlit
 pandas
+streamlit
 numpy
+matplotlib
+plotly
 psycopg2
+sqlalchemy
