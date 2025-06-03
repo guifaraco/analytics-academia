@@ -9,13 +9,13 @@ st.set_page_config(page_title="Cadastros", layout="wide")
 st.title("Cadastros")
 
 clientes, pagamentos, treinos, exercicio = st.columns(4)
-if clientes.button("Cadastrar novo cliente.", use_container_width=True):
+if clientes.button("Cadastrar novo cliente", use_container_width=True):
     cadastro_clientes()
-if pagamentos.button("Cadastrar novo pagamento.", use_container_width=True):    
+if pagamentos.button("Cadastrar novo pagamento", use_container_width=True):    
     cadastro_pagamentos()
-if treinos.button("Cadastrar novo treino.", use_container_width=True):
+if treinos.button("Cadastrar novo treino", use_container_width=True):
     cadastro_treinos()
-if exercicio.button("Cadastrar novo exercicio ao treino.", use_container_width=True):
+if exercicio.button("Cadastrar novo exercicio ao treino", use_container_width=True):
     cadastro_exercio_treino()
 
 if st.sidebar.button("🚪 Sair", use_container_width=True):
