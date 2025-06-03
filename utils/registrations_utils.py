@@ -73,7 +73,8 @@ def cadastro_clientes():
             captions=[
                 "Masculino",
                 "Feminino"
-            ]
+            ],
+            horizontal=True
         )
         email = st.text_input("Insira o e-mail do cliente: ")
         telefone = st.text_input("Insira o telefone do cliente: ")
