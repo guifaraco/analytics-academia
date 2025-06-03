@@ -6,10 +6,15 @@ check_authentication()
 
 st.title("Cadastros")
 
-# cadastro_clientes()
-# cadastro_pagamentos()
-# cadastro_treinos()
-cadastro_exercio_treino()
+clientes, pagamentos, treinos, exercicio = st.columns(4)
+if clientes.button("Cadastrar novo cliente.", use_container_width=True):
+    cadastro_clientes()
+if pagamentos.button("Cadastrar novo pagamento.", use_container_width=True):    
+    cadastro_pagamentos()
+if treinos.button("Cadastrar novo treino.", use_container_width=True):
+    cadastro_treinos()
+if exercicio.button("Cadastrar novo exercicio ao treino.", use_container_width=True):
+    cadastro_exercio_treino()
 
 if st.sidebar.button("🚪 Sair", use_container_width=True):
     logout() 
