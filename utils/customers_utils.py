@@ -24,18 +24,19 @@ def customers_page():
     c1, c2, c3, c4 = st.columns([1,4,4,1], vertical_alignment="bottom")
     filters = []
 
+    min_idade_db = execute_query("SELECT MIN(idade) FROM academia.clientes")[0][0]
+    max_idade_db = execute_query("SELECT MAX(idade) FROM academia.clientes")[0][0]
+
     # Botão de Reset simples
     if c4.button("Resetar filtros", ):
         st.session_state.sexo = None
-        st.session_state.idade = (0,100)
+        st.session_state.idade = (min_idade_db, max_idade_db)
         st.session_state.plano = None
 
     # SEXO
     sexo = c1.radio("Sexo", ("M", "F"), horizontal=True, index=None, key="sexo")
 
     # IDADE
-    min_idade_db = execute_query("SELECT MIN(idade) FROM academia.clientes")[0][0]
-    max_idade_db = execute_query("SELECT MAX(idade) FROM academia.clientes")[0][0]
     min_idade, max_idade = c2.slider(
         "Idade",
         min_idade_db,
