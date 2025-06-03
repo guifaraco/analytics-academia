@@ -16,12 +16,6 @@ def login_page():
     with st.container():
         st.title("Acesso Administrativo")
         
-        username = st.text_input("Usuário")
-        password = st.text_input("Senha", type="password")
-        
-        if st.button("Login"):
-
-        # Formulário para login
         with st.form(key="login_form"):
             username = st.text_input("Usuário")
             password = st.text_input("Senha", type="password")
