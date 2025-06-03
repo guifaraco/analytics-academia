@@ -8,10 +8,8 @@ def check_authentication():
         st.switch_page("pages/0_🔒_Login.py")
 
 def login_page():
-    """Página de login"""
     st.set_page_config(page_title="Login", layout="centered")
     
-    # Obter credenciais do admin
     admin_user = os.getenv('ADMIN_USER', st.secrets.get('admin.user', 'admin'))
     admin_pass = os.getenv('ADMIN_PASSWORD', st.secrets.get('admin.password', 'admin123'))
     
@@ -34,8 +32,8 @@ def login_page():
                 st.error("Credenciais inválidas")
 
 def logout():
-    """Realiza logout do sistema"""
     st.session_state.authenticated = False
-    st.success("Desconectando...")
+    st.toast("Desconectando...")
     time.sleep(2)
+    st.switch_page("pages/0_🔒_Login.py")
     st.rerun()
