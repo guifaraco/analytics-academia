@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.auth import check_authentication, logout
-from utils.reports_utils import contagens, ganhos, instrutores, clientes_planos
+from utils.dashboard_utils import contagens, ganhos, instrutores, clientes_planos
 
 check_authentication()
 
