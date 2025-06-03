@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.auth import check_authentication, logout
-from utils.customers_utils import customers_page
+from utils.database import execute_query
+from utils.customers_utils import show_customers_by_instructor, customers_page
 
 check_authentication()
 
@@ -8,4 +9,7 @@ st.title("Clientes da Academia")
 customers_page()
 
 if st.sidebar.button("🚪 Sair", use_container_width=True):
-    logout() 
+    logout()
+
+st.header("Clientes por Instrutor")
+clientes_por_instrutores = show_customers_by_instructor() 
