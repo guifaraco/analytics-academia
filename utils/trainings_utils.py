@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import psycopg2
 from utils.database import get_connection
 
 #Tabela treinos -> cliente_id,instrutor_id,data_inicio,data_fim,plano_id
