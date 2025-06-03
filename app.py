@@ -3,7 +3,6 @@ from utils.auth import logout
 from utils.database import create_tables, feed_tables
 
 def main():
-    st.set_page_config(layout="wide")
     create_tables()
     feed_tables()
 
@@ -15,10 +14,12 @@ def main():
     cadastros_page = st.Page("frontend/cadastros.py", title="Cadastros", icon="⚙️", url_path="/cadastros")
 
     if 'authentication_status' not in st.session_state:
+        st.set_page_config(layout="centered")
         st.session_state.authentication_status = False
         pg = st.navigation([login_page])
         pg.run()
     elif st.session_state.get('authentication_status'):
+        st.set_page_config(layout="wide")
         pg = st.navigation([
             dashboard_page,
             clientes_page,
@@ -30,6 +31,7 @@ def main():
             logout() 
         pg.run()
     else:
+        st.set_page_config(layout="centered")
         pg = st.navigation([login_page])
         pg.run()
 

@@ -17,7 +17,7 @@ def show_customers_by_instructor():
     """
     
     qtd_clientes = execute_query(query, return_df=True)
-    st.dataframe(qtd_clientes)
+    st.dataframe(qtd_clientes, use_container_width=True)
     
 def customers_page():
     st.subheader("Filtros")
@@ -69,5 +69,6 @@ def customers_page():
         query += ("WHERE "+" AND ".join(filters))
 
     df = execute_query(query,return_df=True)
-    st.dataframe(df, width=9000)
+    st.dataframe(df, use_container_width=True)
+    st.divider()
 
