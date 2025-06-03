@@ -26,7 +26,7 @@ def show_customers_by_instructor():
     
 def customers_page():
     st.subheader("Filtros")
-    c1, c2, c3 = st.columns([3,4,2], vertical_alignment="top")
+    c1, c2, c3 = st.columns([1,9,1], vertical_alignment="bottom")
     filters = []
 
     # Botão de Reset simples
@@ -61,5 +61,5 @@ def customers_page():
         query += ("WHERE "+" AND ".join(filters))
 
     df = execute_query(query,return_df=True)
-    st.dataframe(df)
+    st.dataframe(df, width=9000)
 
