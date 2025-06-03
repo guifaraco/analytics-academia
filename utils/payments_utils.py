@@ -1,6 +1,5 @@
-import pandas as pd
 import streamlit as st
-from utils.database import get_connection, execute_query
+from utils.database import execute_query
 
 def get_df():
     query = """
@@ -37,4 +36,4 @@ def show_payment_statistics():
     st.divider()
     col3, col4 = st.columns(2)
     col3.write(f"## Total de pagamentos: :green[{payment_count}]")
-    col4.write(f"## Valor total de pagamentos: :green[R${payment_total_value}]")
+    col4.write(f"## Valor total de pagamentos: :green[R$ {payment_total_value}]")

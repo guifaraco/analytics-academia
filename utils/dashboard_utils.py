@@ -1,7 +1,6 @@
 import pandas as pd
 import streamlit as st
 from utils.database import execute_query, get_connection
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 #gráfico de pessoas por tipo de plano

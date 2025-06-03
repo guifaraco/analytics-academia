@@ -1,17 +1,7 @@
 import streamlit as st
-from utils.auth import check_authentication, logout
+from utils.auth import logout
 from utils.dashboard_utils import contagens, ganhos, instrutores, clientes_planos
 
-check_authentication()
-
-
-st.set_page_config(page_title="Dashboard", page_icon="🏠", layout="wide")
-
-
-if st.session_state.get('authentication_status'):
-    if st.sidebar.button("🚪 Sair", use_container_width=True):
-        logout() 
-        
 st.title("Dashboard")
 cont, hm = contagens()
 
@@ -26,7 +16,6 @@ with col3:
     st.markdown(f"### Renda Bruta")
     st.markdown(f" #### R${ganhos():,.2f}")
 
-# Parte inferior (tabela ocupando largura total)
 st.markdown("### Instrutores e Especialidade")
 instrutores()
 

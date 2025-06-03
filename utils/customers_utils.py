@@ -1,9 +1,4 @@
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import time
-import os
 import streamlit as st
 from utils.database import execute_query
 
