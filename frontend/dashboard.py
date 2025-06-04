@@ -1,5 +1,6 @@
 import streamlit as st
 from utils.dashboard_utils import contagens, ganhos, instrutores, clientes_planos, planos
+from utils.payments_utils import plot_evolucao_renda
 
 st.title("Dashboard")
 
@@ -21,10 +22,13 @@ with col3:
 
 st.divider()
 
-col4, col5 = st.columns([3,3])
+col4, col5, col6 = st.columns([3,3,3])
 with col4:
     st.markdown("### Gráfico Pizza de Clientes/Plano")
     clientes_planos()
 with col5:
     st.markdown("### Listagem de planos")
     planos()
+with col6:
+    st.markdown("### Gráfico Data x Pagamentos")
+    plot_evolucao_renda()

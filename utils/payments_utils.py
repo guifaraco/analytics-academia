@@ -1,5 +1,7 @@
 import streamlit as st
 from utils.database import execute_query
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def get_df():
     query = """
@@ -37,3 +39,30 @@ def show_payment_statistics():
     col3, col4 = st.columns(2)
     col3.write(f"## Total de pagamentos: :green[{payment_count}]")
     col4.write(f"## Valor total de pagamentos: :green[R$ {payment_total_value}]")
+
+def plot_evolucao_renda():
+    df = get_df()
+
+    if df.empty:
+        st.warning("Nenhum dado encontrado para exibir o gráfico.")
+        return
+
+    # Converter coluna de data
+    df["Data de Pagamento"] = pd.to_datetime(df["Data de Pagamento"])
+
+    # Agrupar por data e somar os valores
+    df_agrupado = df.groupby("Data de Pagamento")["Valor"].sum().reset_index()
+    df_agrupado = df_agrupado.sort_values("Data de Pagamento")
+
+    # Criar o gráfico
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(df_agrupado["Data de Pagamento"], df_agrupado["Valor"], marker='o')
+    ax.set_title("Evolução da Renda por Data de Pagamento")
+    ax.set_xlabel("Data de Pagamento")
+    ax.set_ylabel("Valor Recebido (R$)")
+    ax.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Exibir no Streamlit
+    st.pyplot(fig)
