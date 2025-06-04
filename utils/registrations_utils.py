@@ -64,84 +64,71 @@ def select_box_treino():
 
 def cadastro_clientes():
     with st.form('cadastro_cliente', clear_on_submit=True):
-        try:
-            nome = st.text_input('Insira o nome do cliente:')
-            idade = st.text_input('Insira a idade do cliente:')
-            sexo = st.radio(
-                "Selecione o seu gênero:",
-                ["M", "F"],
-                captions=[
-                    "Masculino",
-                    "Feminino"
-                ],
-                horizontal=True
-            )
-            email = st.text_input("Insira o e-mail do cliente: ")
-            telefone = st.text_input("Insira o telefone do cliente: ")
-            plano_id = select_box_planos()
-            submit = st.form_submit_button("Cadastrar")
+        nome = st.text_input('Insira o nome do cliente:')
+        idade = st.text_input('Insira a idade do cliente:')
+        sexo = st.radio(
+            "Selecione o seu gênero:",
+            ["M", "F"],
+            captions=[
+                "Masculino",
+                "Feminino"
+            ],
+            horizontal=True
+        )
+        email = st.text_input("Insira o e-mail do cliente: ")
+        telefone = st.text_input("Insira o telefone do cliente: ")
+        plano_id = select_box_planos()
+        submit = st.form_submit_button("Cadastrar")
 
-            if submit and nome and idade and sexo and email and telefone:
-                query = "INSERT INTO academia.clientes (nome, idade, sexo, email, telefone, plano_id) VALUES (%s,%s,%s,%s,%s,%s)"
-                execute_query(query, params=(nome,idade,sexo,email,telefone,plano_id[0]))
-                st.success('Cliente cadastrado com sucesso!!!')
-        except Exception as e:
-            st.warning(f'Erro inesperado: {e}')
+        if submit and nome and idade and sexo and email and telefone and plano_id:
+            query = "INSERT INTO academia.clientes (nome, idade, sexo, email, telefone, plano_id) VALUES (%s,%s,%s,%s,%s,%s)"
+            execute_query(query, params=(nome,idade,sexo,email,telefone,plano_id[0]))
+            st.success('Cliente cadastrado com sucesso!!!')
+        elif submit:
+            st.warning(f"Erro com os dados enviados.")
 
 def cadastro_pagamentos():
     with st.form('cadastro_pagamento', clear_on_submit=True):
-        try:
-            cliente_id = select_box_cliente()
-            plano_id = select_box_planos()
-            valor_pago = st.text_input("Digite o valor pago:")
-            data_pagamento = st.date_input("Data do pagamento: ")  
-            submit = st.form_submit_button()
+        cliente_id = select_box_cliente()
+        plano_id = select_box_planos()
+        valor_pago = st.text_input("Digite o valor pago:")
+        data_pagamento = st.date_input("Data do pagamento: ")  
+        submit = st.form_submit_button()
 
-            if submit and cliente_id and valor_pago and plano_id and data_pagamento:
-                query = "INSERT INTO academia.pagamento_clientes (cliente_id, plano_id, valor_pago, data_pagamento) VALUES (%s,%s,%s,%s)"
-                execute_query(query, params=(cliente_id, plano_id, valor_pago, data_pagamento))
-                st.success('Pagamento cadastrado com sucesso!!!')
-            else:
-                st.warning('Erro inesperado.')
-        except Exception as e:
-            st.warning(f'Erro inesperado: {e}')
+        if submit and cliente_id and valor_pago and plano_id and data_pagamento:
+            query = "INSERT INTO academia.pagamento_clientes (cliente_id, plano_id, valor_pago, data_pagamento) VALUES (%s,%s,%s,%s)"
+            execute_query(query, params=(cliente_id, plano_id, valor_pago, data_pagamento))
+            st.success('Pagamento cadastrado com sucesso!!!')
+        elif submit:
+            st.warning(f"Erro com os dados enviados.")
 
 def cadastro_treinos():
     # cliente_id, instrutor_id, data_inicio, data_fim, plano_id
-    with st.form('cadastro_pagamento', clear_on_submit=True):
-        try:
-            cliente_id = select_box_cliente()
-            instrutor_id = select_box_instrutor()
-            data_inicio = st.date_input("Data do início do treino:")
-            data_fim = st.date_input("Data do final do treino: ")
-            plano_id = select_box_planos()
-            submit = st.form_submit_button()
+    with st.form('cadastro_treinos', clear_on_submit=True):
+        cliente_id = select_box_cliente()
+        instrutor_id = select_box_instrutor()
+        data_inicio = st.date_input("Data do início do treino:")
+        data_fim = st.date_input("Data do final do treino: ")
+        plano_id = select_box_planos()
+        submit = st.form_submit_button()
 
-            if submit and cliente_id and instrutor_id and data_inicio and data_fim and plano_id:
-                query = "INSERT INTO academia.treinos (cliente_id, instrutor_id, data_inicio, data_fim, plano_id) VALUES (%s,%s,%s,%s,%s)"
-                execute_query(query, params=(cliente_id, instrutor_id, data_inicio, data_fim, plano_id))
-                st.success('Treino cadastrado com sucesso!!!')
-            else:
-                st.warning('Erro inesperado.')
-        except Exception as e:
-            st.warning(f'Erro inesperado: {e}')
+        if submit and cliente_id and instrutor_id and data_inicio and data_fim and plano_id:
+            query = "INSERT INTO academia.treinos (cliente_id, instrutor_id, data_inicio, data_fim, plano_id) VALUES (%s,%s,%s,%s,%s)"
+            execute_query(query, params=(cliente_id, instrutor_id, data_inicio, data_fim, plano_id))
+            st.success('Treino cadastrado com sucesso!!!')
 
 def cadastro_exercio_treino():
     # treino_id, exercicio_id, series, repeticoes
     with st.form('cadastro_ex_treino', clear_on_submit=True):
-        try:
-            treino_id = select_box_treino()
-            exercicio_id = select_box_exercicio()
-            series = st.text_input("Digite a quantidade de séries: ")
-            repeticoes = st.text_input("Digite a quantidade de repetições: ")
-            submit = st.form_submit_button()
+        treino_id = select_box_treino()
+        exercicio_id = select_box_exercicio()
+        series = st.text_input("Digite a quantidade de séries: ")
+        repeticoes = st.text_input("Digite a quantidade de repetições: ")
+        submit = st.form_submit_button()
 
-            if submit and treino_id and exercicio_id and series and repeticoes:
-                query = "INSERT INTO academia.treino_exercicios (treino_id, exercicio_id, series, repeticoes) VALUES (%s,%s,%s,%s)"
-                execute_query(query, params=(treino_id, exercicio_id, series, repeticoes))
-                st.success('Exercicio cadastrado com sucesso!!!')
-            else:
-                st.warning('Erro inesperado.')
-
-        except Exception as e:
-            st.warning(f'Erro inesperado: {e}')
+        if submit and treino_id and exercicio_id and series and repeticoes:
+            query = "INSERT INTO academia.treino_exercicios (treino_id, exercicio_id, series, repeticoes) VALUES (%s,%s,%s,%s)"
+            execute_query(query, params=(treino_id, exercicio_id, series, repeticoes))
+            st.success('Exercicio cadastrado com sucesso!!!')
+        elif submit:
+            st.warning(f"Erro com os dados enviados.")

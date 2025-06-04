@@ -4,12 +4,12 @@ from utils.registrations_utils import cadastro_clientes, cadastro_pagamentos, ca
 
 st.title("Cadastros")
 
-clientes, pagamentos, treinos, exercicio = st.columns(4)
-if clientes.button("Cadastrar novo cliente", use_container_width=True):
+tab1, tab2, tab3, tab4 = st.tabs(["Clientes", "Pagamentos", "Treinos", "Exercicios"])
+with tab1:
     cadastro_clientes()
-if pagamentos.button("Cadastrar novo pagamento", use_container_width=True):    
+with tab2:
     cadastro_pagamentos()
-if treinos.button("Cadastrar novo treino", use_container_width=True):
+with tab3:
     cadastro_treinos()
-if exercicio.button("Cadastrar novo exercicio ao treino", use_container_width=True):
+with tab4:
     cadastro_exercio_treino()
