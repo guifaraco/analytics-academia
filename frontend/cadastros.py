@@ -4,6 +4,8 @@ from utils.registrations_utils import cadastro_clientes, cadastro_pagamentos, ca
 
 st.title("Cadastros")
 
+st.divider()
+
 clientes, pagamentos, treinos, exercicio = st.columns(4)
 if clientes.button("Cadastrar novo cliente", use_container_width=True):
     cadastro_clientes()
@@ -13,3 +15,4 @@ if treinos.button("Cadastrar novo treino", use_container_width=True):
     cadastro_treinos()
 if exercicio.button("Cadastrar novo exercicio ao treino", use_container_width=True):
     cadastro_exercio_treino()
+st.divider()
