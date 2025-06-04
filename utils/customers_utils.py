@@ -21,19 +21,20 @@ def show_customers_by_instructor():
     
 def customers_page():
     st.subheader("Filtros")
-    c1, c2, c3, c4 = st.columns([1,4,4,1], vertical_alignment="bottom")
+    c1, c2, c3, c4, c5 = st.columns([5,5,2,4,2], vertical_alignment="bottom")
     filters = []
 
     min_idade_db = execute_query("SELECT MIN(idade) FROM academia.clientes")[0][0]
     max_idade_db = execute_query("SELECT MAX(idade) FROM academia.clientes")[0][0]
     # Botão de Reset simples
-    if c4.button("Resetar filtros", ):
+    if c5.button("Resetar filtros", ):
         st.session_state.sexo = None
+        st.session_state.nome = None
         st.session_state.idade = (min_idade_db,max_idade_db)
         st.session_state.plano = None
 
-    # SEXO
-    sexo = c1.radio("Sexo", ("M", "F"), horizontal=True, index=None, key="sexo")
+    # NOME
+    nome = c1.text_input("Nome", key="nome")
 
     # IDADE
     min_idade, max_idade = c2.slider(
@@ -44,15 +45,21 @@ def customers_page():
         key="idade"
     )
 
+    # SEXO
+    sexo = c3.radio("Sexo", ("M", "F"), horizontal=True, index=None, key="sexo")
+
+
     # PLANOS
     planos = execute_query("SELECT nome FROM academia.planos")
     planos = [plano[0] for plano in planos]
-    plano = c3.selectbox(
+    plano = c4.selectbox(
         "Plano", 
         planos, 
         key="plano",
         index=None
     )
+    if nome:
+        filters.append(f"c.nome LIKE '%{nome}%'")
     if min_idade and max_idade:
         filters.append(f"c.idade >= '{min_idade}'")
         filters.append(f"c.idade <= '{max_idade}'")
@@ -70,5 +77,6 @@ def customers_page():
 
     df = execute_query(query,return_df=True)
     st.dataframe(df, use_container_width=True)
+    st.subheader(f"Clientes Retornados: {len(df)}")
     st.divider()
 
